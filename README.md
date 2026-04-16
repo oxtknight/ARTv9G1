@@ -1,6 +1,6 @@
 ## Arduino Robotic Arm for ART v9
 This project was created by:  
-- Benbarakat Ayoub (Supervisor)
+- Benberkat Ayoub (Supervisor)
 - Ihamouine Abderrahmane (Supervisor)
 - BADI Aicha (team member)  
 - Zerouali Rayan (team member)
