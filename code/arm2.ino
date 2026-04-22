@@ -108,10 +108,9 @@ void moveto(joint &j) {
     if (j.currentangle < j.targetangle) {
         j.currentangle++;
         j.motor.write(j.currentangle);
-    } else {if (j.currentangle > j.targetangle) {
+    } else if (j.currentangle > j.targetangle) {
         j.currentangle--;
         j.motor.write(j.currentangle);
-    }
     }
 }
 
