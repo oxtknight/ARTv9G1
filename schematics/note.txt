@@ -1,0 +1,2 @@
+about the schematic:
+Chaima said: "That's the schematic, remember that I did not find a HC05 so I used rgb"
