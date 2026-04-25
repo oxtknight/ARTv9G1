@@ -8,6 +8,7 @@ that's it. thank you!!
 
 
 
-![image.png](jb-image:img_1777146139345_b0379feaa00718)
+<img width="101" height="154" alt="image" src="https://github.com/user-attachments/assets/2e4097e6-23c4-4133-a754-76b31b8316c9" />
+
 
 
