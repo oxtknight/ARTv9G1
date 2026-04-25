@@ -1,3 +1,4 @@
+
 #include<SoftwareSerial.h>
 #include<Servo.h>
 #include<math.h>
@@ -6,6 +7,7 @@ constexpr float L1 = 12.0;
 constexpr float L2 = 15.0;
 constexpr float bh = 9.0;
 constexpr float pi = 3.14159265;
+float storedx = 0, storedy=0,storedz=0;
 struct joint{
   Servo motor;
   byte pin;
@@ -16,7 +18,7 @@ struct joint{
 joint b = {Servo(),3,90,90,0};
 joint sh = {Servo(),5,90,90,0};
 joint e = {Servo(),6,90,90,0};
-joint g = {Servo(),9,90,90,};
+joint g = {Servo(),9,90,90,0};
 unsigned long laststeptime= 0;
 const int stepdelay=10;
 void setup() {
@@ -32,6 +34,7 @@ void setup() {
 void loop() {
     handleserial(); 
     updatemotion(); 
+    
 }
 void handleserial() {
   //so this function is to clear buffer so that we have and save the data from the app 
@@ -50,22 +53,37 @@ void handleserial() {
 //this the function that processes the recieved data from the app and just put it in a buffer to recheck it later on
 void processcmd(String cmd) {
     cmd.trim();
-    if (cmd.length() == 0) return;
+    if (cmd.length() < 2) 
+    return;
 
     char header = cmd[0];
     String data = cmd.substring(1);
 
     if (header == 'K') {
-        float tx, ty, tz;
-        if (sscanf(data.c_str(), "%f,%f,%f", &tx, &ty, &tz) == 3) {
-            calculateIK(tx, ty, tz);
+        char axis;
+        float value;
+
+        if (sscanf(data.c_str(), "%c%f", &axis, &value) == 2) {
+            if (axis == 'x') storedx=value;
+            if (axis == 'y') storedy=value;
+            if (axis == 'z') {
+                storedz = value;
+            Serial.println("inverse kinematic started: ");
+            Serial.print(storedx);
+            Serial.print(",");
+            Serial.print(storedy);
+            Serial.print(",");
+            Serial.print(storedz);
+            
+            calculateIK(storedx, storedy, storedz);
+            }
         }
     } else {
         int val = data.toInt();
         if (header == 'B') b.targetangle = constrain(val, 0, 180);
         if (header == 'S') sh.targetangle = constrain(val, 0, 180);
         if (header == 'E') e.targetangle = constrain(val, 0, 180);
-        if (header == 'G') g.targetangle = constrain(val, 20, 160);
+        if (header == 'G') g.targetangle = constrain(val, 75, 140);
     }
 }
 //obv this  is the inverse kinematics function 
@@ -90,6 +108,7 @@ void calculateIK(float x, float y, float z) {
     b.targetangle = (theta1 * 180.0 / pi) + 90;
     sh.targetangle = (theta2 * 180.0 / pi) + sh.offset;
     e.targetangle = (180 - (theta3 * 180.0 / pi)) + e.offset;
+    
 }
 //this is the functio that checks what loop finished and edit the time that way it be fasterrr brrr
 void updatemotion() {
@@ -108,9 +127,9 @@ void moveto(joint &j) {
     if (j.currentangle < j.targetangle) {
         j.currentangle++;
         j.motor.write(j.currentangle);
-    } else if (j.currentangle > j.targetangle) {
+    } else {if (j.currentangle > j.targetangle) {
         j.currentangle--;
         j.motor.write(j.currentangle);
     }
+    }
 }
-
