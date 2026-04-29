@@ -52,22 +52,27 @@ void handleserial() {
 }
 //this the function that processes the recieved data from the app and just put it in a buffer to recheck it later on
 void processcmd(String cmd) {
+    //i be listening to love dramatic "misterr oh misterrr ゆみじゃないならきかせて "
     cmd.trim();
-    if (cmd.length() < 2) 
+    if (cmd.length() < 2)
     return;
 
     char header = cmd[0];
-    String data = cmd.substring(1);
-
-    if (header == 'K') {
-        char axis;
-        float value;
-
-        if (sscanf(data.c_str(), "%c%f", &axis, &value) == 2) {
-            if (axis == 'x') storedx=value;
-            if (axis == 'y') storedy=value;
-            if (axis == 'z') {
-                storedz = value;
+    if (header == 'K'){
+        char axis = cmd[1];
+        float value = cmd.substring(2).toFloat();
+        //this time i be listening to heartache :) pretty cool
+        if (axis == 'x'){
+             storedx = value;
+             Serial.print("Detected X axis = "); Serial.print(storedx);
+             }
+        else if (axis == 'y') {
+             storedy = value;
+             Serial.print("Detected Y axis ="); Serial.print(storedy);
+             }
+        else if (axis == 'z')  {
+            storedz = value;
+            Serial.print("Detected Z axis ="); Serial.print(storedz);
             Serial.println("inverse kinematic started: ");
             Serial.print(storedx);
             Serial.print(",");
@@ -76,10 +81,10 @@ void processcmd(String cmd) {
             Serial.print(storedz);
             
             calculateIK(storedx, storedy, storedz);
-            }
         }
-    } else {
-        int val = data.toInt();
+        }
+     else {
+        int val = cmd.substring(1).toInt();
         if (header == 'B') b.targetangle = constrain(val, 0, 180);
         if (header == 'S') sh.targetangle = constrain(val, 0, 180);
         if (header == 'E') e.targetangle = constrain(val, 0, 180);
@@ -133,3 +138,13 @@ void moveto(joint &j) {
     }
     }
 }
+//sscanf(buffer, sizeof(buffer),"")
+
+//chaima's idea : K:x:12
+
+/*String data = Serial.read();
+int separatorIndex = data.indexOf(':');  
+String part1 = data.substring(0, separatorIndex); 
+String part2 = data.substring(separatorIndex,separatorIndex); 
+String part3 = data.substring(separatorIndex + 1); 
+int value = part3.toInt();*/
