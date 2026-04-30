@@ -7,6 +7,7 @@ constexpr float L1 = 12.0;
 constexpr float L2 = 15.0;
 constexpr float bh = 9.0;
 constexpr float pi = 3.14159265;
+//radius of base 4.5cm
 float storedx = 0, storedy=0,storedz=0;
 struct joint{
   Servo motor;
@@ -15,16 +16,17 @@ struct joint{
   float targetangle;
   float offset;
 };
-joint b = {Servo(),3,90,90,0};
-joint sh = {Servo(),5,90,90,0};
-joint e = {Servo(),6,90,90,0};
-joint g = {Servo(),9,90,90,0};
+joint b = {Servo(),3,90,90,90};//og was 0
+joint sh = {Servo(),5,90,90,0};//the one we calculated was -43
+joint e = {Servo(),6,90,90,90};//was 0
+joint g = {Servo(),9,90,145,0};
 unsigned long laststeptime= 0;
 const int stepdelay=10;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600); 
   blub.begin(9600);
+  delay(2000);
   b.motor.attach(b.pin);
   sh.motor.attach(sh.pin);
   e.motor.attach(e.pin);
@@ -85,8 +87,8 @@ void processcmd(String cmd) {
         }
      else {
         int val = cmd.substring(1).toInt();
-        if (header == 'B') b.targetangle = constrain(val, 0, 180);
-        if (header == 'S') sh.targetangle = constrain(val, 0, 180);
+        if (header == 'B') b.targetangle = constrain((180-val), 0, 180);
+        if (header == 'S') sh.targetangle = constrain((180-val), 0, 180);
         if (header == 'E') e.targetangle = constrain(val, 0, 180);
         if (header == 'G') g.targetangle = constrain(val, 75, 140);
     }
@@ -138,13 +140,3 @@ void moveto(joint &j) {
     }
     }
 }
-//sscanf(buffer, sizeof(buffer),"")
-
-//chaima's idea : K:x:12
-
-/*String data = Serial.read();
-int separatorIndex = data.indexOf(':');  
-String part1 = data.substring(0, separatorIndex); 
-String part2 = data.substring(separatorIndex,separatorIndex); 
-String part3 = data.substring(separatorIndex + 1); 
-int value = part3.toInt();*/
