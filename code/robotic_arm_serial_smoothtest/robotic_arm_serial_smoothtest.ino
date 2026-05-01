@@ -71,19 +71,24 @@ void processcmd(String cmd) {
     cmd.trim();
     if (cmd.length() < 2) 
     return;
-
     char header = cmd[0];
-    String data = cmd.substring(1);
-
-    if (header == 'K') {
-        char axis;
-        float value;
-
-        if (sscanf(data.c_str(), "%c%f", &axis, &value) == 2) {
-            if (axis == 'x') storedx=value;
-            if (axis == 'y') storedy=value;
-            if (axis == 'z') {
-                storedz = value;
+    if (header == 'K'){
+        Serial.println("Detected IK command");   /////// aaaaaaaaaaaaaaaaaaaa debuuuuuuggg aaaa deebuug aahh ohhh noooo wnaodawawd
+        char axis = cmd[1];
+        float value = cmd.substring(2).toFloat();
+        //frfr tho i be using all brain juice available aaaa rahh 
+        //if ts doesnt end up work imma tweak out fr this time .mark my words.
+        if (axis == 'x'){
+             storedx = value;
+             Serial.print("Detected X axis = "); Serial.print(storedx);
+             }
+        else if (axis == 'y') {
+             storedy = value;
+             Serial.print("Detected Y axis ="); Serial.print(storedy);
+             }
+        else if (axis == 'z')  {
+            storedz = value;
+            Serial.print("Detected Z axis ="); Serial.print(storedz);
             Serial.println("inverse kinematic started: ");
             Serial.print(storedx);
             Serial.print(",");
@@ -93,9 +98,9 @@ void processcmd(String cmd) {
             
             calculateIK(storedx, storedy, storedz);
             }
-        }
+        
     } else {
-        int val = data.toInt();
+        int val = cmd.substring(1).toInt();
         if (header == 'B') b.targetangle = constrain(val, 0, 180);
         if (header == 'S') sh.targetangle = constrain(val, 0, 180);
         if (header == 'E') e.targetangle = constrain(val, 0, 180);
@@ -109,8 +114,21 @@ void calculateIK(float x, float y, float z) {
     float zr = z - bh;
     float s = sqrt(r*r + zr*zr);
 
+    Serial.print("Theta 1 = "); ///this and the line before it are for deeeebuuuuuuuuuuuuugg woowoooooooooooooooooooooooooooooo
+    Serial.println(theta1);
+
+    Serial.print("R = ");
+    Serial.println(r);
+
+    Serial.print("Zr = ");
+    Serial.println(zr);
+
+    Serial.print("S = ");
+    Serial.println(s);
+
+    
     if (s > (L1 + L2) || s < abs(L1 - L2)) {
-        Serial.println(F("the target is unreachable since the distance is not the limits"));
+        Serial.println(F("The distance is either too far or too close to reach safely"));
         return;
     }
 
@@ -124,9 +142,13 @@ void calculateIK(float x, float y, float z) {
     b.targetangle = (theta1 * 180.0 / pi) + 90;
     sh.targetangle = (theta2 * 180.0 / pi) + sh.offset;
     e.targetangle = (180 - (theta3 * 180.0 / pi)) + e.offset;
-    Serial.print("lucky shot: "); Serial.print(x); Serial.print(","); Serial.println(z);
+    Serial.print("Angles in rad [B,S,E] ="); Serial.print(theta1); Serial.print(", "); Serial.print(theta2); Serial.print(", "); Serial.println(theta3);
+    Serial.print("Angles in degrees [B,S,E] ="); Serial.print(b.targetangle); Serial.print(", "); Serial.print(sh.targetangle); Serial.print(", "); Serial.println(e.targetangle);
+    Serial.print("lucky shot: "); Serial.print(x); Serial.print(", ");Serial.print(y);Serial.println(", "); Serial.println(z);
+    Serial.println(" ");
+
 }
-//this is the functio that checks what loop finished and edit the time that way it be fasterrr brrr
+//this is the functio~ that checks what loop finished and edit the time that way it be fasterrr brrr
 void updatemotion() {
     if (millis() - laststeptime > stepdelay) {
         laststeptime = millis();
@@ -138,9 +160,6 @@ void updatemotion() {
     
 }
 }
-//this is the idea i suggested in the groupchat abt using steps to move that way it goes smoothly 
-
-    // Trying to experiment a bit :D checking if my idea would work wwww
 void Move(joint &J)
 {
     float Distance = abs(J.currentangle - J.targetangle);
@@ -176,4 +195,5 @@ void Move(joint &J)
         }
     }               //// heyy so uhh i know this looks a lil sus and ineffective but lemme cook aye!!! if this works it gonna be so lovelyy, otherwise... rip!
 }
+
 
