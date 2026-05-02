@@ -131,12 +131,20 @@ void updatemotion() {
 }
 //this is the idea i suggested in the groupchat abt using steps to move that way it goes smoothly 
 void moveto(joint &j) {
-    if (j.currentangle < j.targetangle) {
-        j.currentangle++;
-        j.motor.write(j.currentangle);
-    } else {if (j.currentangle > j.targetangle) {
+    if (abs(j.currentangle - j.targetangle) > 1.0)
+      {
+      if (j.currentangle < j.targetangle) {
+          j.currentangle++;
+          j.motor.write(j.currentangle);
+     } else {if (j.currentangle > j.targetangle) {
         j.currentangle--;
         j.motor.write(j.currentangle);
-    }
+        }
+       }
+      }
+    else
+    {
+      j.motor.write(j.targetangle);
+      j.currentangle = j.targetangle;
     }
 }
