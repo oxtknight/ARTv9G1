@@ -9,7 +9,7 @@ constexpr float L1 = 12.0;
 constexpr float L2 = 15.0;
 constexpr float bh = 9.0;
 //these 3 expressions above are for the arm dimensions in cm that will be needed in IK calculations later on 
-constexpr float pi = 3.14159265;//wanted to brag abt me memorizing abt 20 digits 
+constexpr float pi = 3.14159265;//wanted to brag abt me memorizing abt 20 digits  // crezy this is so cool fr -rei 
 //radius of base 4.5cm//comment the comment had to add this if we need it somehow somewhere
 float storedx = 0, storedy = 0, storedz = 0;
 //initializing variables that our recieved coordinates will be saved into
@@ -21,14 +21,14 @@ struct joint {
   float offset;//offset 4 callibration to fix mechanical isssues brr
 };//cool struct component just to keep my code clean and look more pro (i learned abt structs abt 3 months ago , had to test my knowledge )
 joint b = { Servo(), 3, 90, 90, 90 };  //og was 0    | this is the base servo
-joint sh = { Servo(), 5, 90, 90, 0 };  //the one we calculated was -43   | this is the shoulder servo
+joint sh = { Servo(), 5, 90, 90, 0 };  //the one we calculated was -43   | this is the shoulder servo 
 joint e = { Servo(), 6, 90, 90, 90 };  //was 0  | this is the elbow servo 
 joint g = { Servo(), 9, 90, 145, 0 }; // this is the gripper servo 
 //above here i defined the values following this format:    
 //our_struct_name servo_name ={ servo()_to_define_servo, which_pin ,current_angle_for callibration, target_angle_we_want_the_to_go_to_once_code_uploaded, offset};
 //listening to snowdin town  
 unsigned long laststeptime = 0;
-const int stepdelay = 10;
+const int stepdelay = 20;
 //this lovely step delay will be used to make movement smooth so it is 10ns delay between steps (degrees) we can adjust this to adjust speed , the lower the faster 
 void setup() {
   Serial.begin(9600);//so  ye as uk this is for the serial monitor to be able to use it
