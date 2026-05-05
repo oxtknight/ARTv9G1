@@ -1,0 +1,51 @@
+Z:\home\haru\ARTv9G1\README.md(2): Unknown parameter
+This project was created by:  
+                           ^
+Z:\home\haru\ARTv9G1\README.md(3): Expected device instantiation or directive here.
+- Benberkat Ayoub (Supervisor)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(4): Expected device instantiation or directive here.
+- Ihamouine Abderrahmane (Supervisor)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(5): Expected device instantiation or directive here.
+- BADI Aicha (team member)  
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(6): Expected device instantiation or directive here.
+- Zerouali Rayan (team member)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(7): Expected device instantiation or directive here.
+- Mokeddem Chaima (team member)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(8): Expected device instantiation or directive here.
+- Aliouane Abde Elhadi (team member)  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(10): Expected device instantiation or directive here.
+|  COMPONENT  |PIN   |
+^^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(11): Expected device instantiation or directive here.
+|---|---|
+^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(12): Expected device instantiation or directive here.
+| Rx  |10   |
+^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(13): Expected device instantiation or directive here.
+| Tx  |11   |
+^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(14): Expected device instantiation or directive here.
+|  base servo | 3  |
+^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(15): Expected device instantiation or directive here.
+| shoulder servo | 5|
+^^^^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(16): Expected device instantiation or directive here.
+| elbow servo | 6|
+^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(17): Expected device instantiation or directive here.
+| gripper servo|9|
+^^^^^^^^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(18): Expected device instantiation or directive here.
+|GND | GND|
+^^^^^^^^^^^
+Z:\home\haru\ARTv9G1\README.md(19): Expected device instantiation or directive here.
+|VCC | 5V|
+^^^^^^^^^^
