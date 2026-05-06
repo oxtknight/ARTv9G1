@@ -62,6 +62,6 @@ To minimize mechanical stress on 3D-printed components and prevent voltage sags 
 
 ## Repository Structure
 - **/code**: Contains all iterations of the firmware, including the final `robotic_arm_app.ino`.
-- **/app**: Source files for the MIT App Inventor control dashboard.
+- **/app**: Source files for the Kodular control dashboard.
 - **/schematics**: Circuit diagrams, pinout tables, and hardware assembly notes.
 - **/vids&pics**: Visual documentation of simulation tests and physical hardware calibration.
